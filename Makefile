@@ -1,5 +1,7 @@
 # Makefile for setting up dot/config files
 
+default: install
+
 # Lines to add to bashrc
 BASH_COMMENT=\# Host Independent Settings
 BASH_SOURCE =source ~/dotfiles/bash_settings.sh

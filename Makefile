@@ -13,10 +13,13 @@ install-bash: bash_settings.sh
 		 echo "${BASH_SOURCE}" >> ~/.bashrc)
 
 install-vim: vim vimrc
-	ln -s ~/dotfiles/vimrc ~/.vimrc
-	ln -s ~/dotfiles/vim ~/.vim
-	mkdir ~/.backup
+	-ln -s ~/dotfiles/vimrc ~/.vimrc
+	-ln -s -T ~/dotfiles/vim ~/.vim
+	-mkdir ~/.backup
 
-install: install-bash install-vim
+install-screen: screenrc
+	-ln -s ~/dotfiles/screenrc ~/.screenrc
 
-.PHONY: install clean install-bash install-vim
+install: install-bash install-vim install-screen
+
+.PHONY: install clean install-bash install-vim install-screen

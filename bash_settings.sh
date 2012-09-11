@@ -10,14 +10,14 @@ function parse_git_branch() {
 	[ -z "$(echo "$STATUS" | grep -e '^.M')" 	] || DIRTY="*"
 	[ -z "$(echo "$STATUS" | grep -e '^[MDA]')" 	] || DIRTY="${DIRTY}+"
 	[ -z "$(git stash list)" ]
-	echo "\[$White\]:\[$Purple\][$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //')$DIRTY]"
+	echo "$White:$Purple[$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //')$DIRTY]"
 }
 
 function parse_svn_revision() {
 	local DIRTY REV=$(svn info 2>/dev/null | grep Revision | sed -e 's/Revision: //')
 	[ "$REV" ] || return
 	[ "$(svn st | grep -e '^ \?[M?] ')" ] && DIRTY='*'
-	echo "\[$White\]:\[$Purple\][r$REV$DIRTY]"
+	echo "$White:$Purple[r$REV$DIRTY]"
 }
 
 # Pretty sure this is broken (still)
@@ -27,11 +27,11 @@ function parse_hg_branch() {
 	[[ `hg branch 2>/dev/null` ]] || return
 	#[ -z "$(echo "$STATUS" | grep -e '^\?')" ] || DIRTY="*"
 	[ -z "$(echo "$STATUS" | grep -e '^[^?]')" ] || DIRTY="${DIRTY}+"
-	echo "\[$White\]:\[$Purple\][$(hg branch 2>/dev/null | awk '{print $1}')$DIRTY]"
+	echo "$White:$Purple[$(hg branch 2>/dev/null | awk '{print $1}')$DIRTY]"
 }
 
 function parse_vcs() {
-	echo "$(parse_git_branch)$(parse_svn_revision)$(parse_hg_branch)"
+	echo -e "$(parse_git_branch)$(parse_svn_revision)$(parse_hg_branch)"
 }
 
 # Check for an interactive session (What?)

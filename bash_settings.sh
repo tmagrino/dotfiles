@@ -10,14 +10,14 @@ function parse_git_branch() {
 	[ -z "$(echo "$STATUS" | grep -e '^.M')" 	] || DIRTY="*"
 	[ -z "$(echo "$STATUS" | grep -e '^[MDA]')" 	] || DIRTY="${DIRTY}+"
 	[ -z "$(git stash list)" ]
-	echo "$White:$Purple[$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //')$DIRTY]"
+	echo "[$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //')$DIRTY]"
 }
 
 function parse_svn_revision() {
 	local DIRTY REV=$(svn info 2>/dev/null | grep Revision | sed -e 's/Revision: //')
 	[ "$REV" ] || return
 	[ "$(svn st | grep -e '^ \?[M?] ')" ] && DIRTY='*'
-	echo "$White:$Purple[r$REV$DIRTY]"
+	echo "[r$REV$DIRTY]"
 }
 
 # Pretty sure this is broken (still)
@@ -25,13 +25,18 @@ function parse_hg_branch() {
 	local STATUS DIRTY=""
 	STATUS=$(hg status 2>/dev/null)
 	[[ `hg branch 2>/dev/null` ]] || return
-	#[ -z "$(echo "$STATUS" | grep -e '^\?')" ] || DIRTY="*"
 	[ -z "$(echo "$STATUS" | grep -e '^[^?]')" ] || DIRTY="${DIRTY}+"
-	echo "$White:$Purple[$(hg branch 2>/dev/null | awk '{print $1}')$DIRTY]"
+	echo "[$(hg branch 2>/dev/null | awk '{print $1}')$DIRTY]"
 }
 
-function parse_vcs() {
-	echo -e "$(parse_git_branch)$(parse_svn_revision)$(parse_hg_branch)"
+function parse_vcs {
+	local STATUS
+	STATUS="$(parse_git_branch)$(parse_svn_revision)$(parse_hg_branch)"
+	if [ "$STATUS" ]; then
+		echo $STATUS
+	else
+		echo "[-]"
+	fi
 }
 
 # Check for an interactive session (What?)
@@ -45,7 +50,16 @@ alias pdb='python -m pdb'
 alias pdb3='python3 -m pdb'
 
 # Bash Prompt
-PS1="\[$Cyan\][\@] \[$Red\]\u\[$White\]@\[$Blue\]\h\[$White\]:\[$Green\]\w\$(parse_vcs)\[$Red\]\$\[\e[0m\] "
+PS1_ES=0
+PROMPT_COMMAND='PS1_ES=$?'
+PS1_TIME="\[$Cyan\][\@]\[$Color_Off\]"
+PS1_USER="\[$Red\]\u\[$Color_Off\]"
+PS1_HOST="\[$Blue\]\h\[$Color_Off\]"
+PS1_CWD="\[$Green\]\w\[$Color_Off\]"
+PS1_VCS="\[$Purple\]\$(parse_vcs)"
+PS1_END_COLOR='$(if [[ $PS1_ES -eq 0 ]]; then echo -ne "\[$Green\]"; else echo -ne "\[$Red\]"; fi)'
+PS1_END="$PS1_END_COLOR\$\[$Color_Off\]"
+PS1="$PS1_TIME $PS1_USER@$PS1_HOST:$PS1_CWD $PS1_VCS$PS1_END "
 
 # Preferred Programs
 export EDITOR="/usr/bin/vim"

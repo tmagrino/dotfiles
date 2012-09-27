@@ -28,10 +28,10 @@ defutf8 on
 # Hotkeys to change windows
 # bindkey ";6C" next  # ctrl+right    # wtf these make bells all over the place
 # bindkey ";6D" prev  # ctrl+left
-bindkey "^l" next
-bindkey "^h" prev
+#bindkey "^l" next
+#bindkey "^h" prev
 
 # Reload screenrc. useful!
 bindkey "4;5~" eval 'source ~/.screenrc' 'echo "screenrc reloaded."'   # ctrl+f12
 
-bindkey "^n" screen
+#bindkey "^n" screen

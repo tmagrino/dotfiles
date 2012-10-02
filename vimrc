@@ -94,9 +94,10 @@ set grepprg=grep\ -nH\ $*
 
 let g:tex_flavor='latex'
 
+" Most tolerable colorscheme so far
 colorscheme delek
 
-" Set <leader> to H globally and L locally
+" Set <leader> to - globally and _ locally
 let mapleader="-"
 let maplocalleader="_"
 
@@ -107,3 +108,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Fix common typos
 " iabbrev dont don't
 " iabbrev taht that
+
+augroup filetypedetect
+  " Treat fab and fil files like java.
+  autocmd! BufNewFile,Bufread *.{fab,fil}    setfiletype java
+augroup end

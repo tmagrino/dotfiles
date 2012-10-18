@@ -105,6 +105,12 @@ let maplocalleader="_"
 nnoremap <leader>ev :sp $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" No arrow keys
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
 " Fix common typos
 " iabbrev dont don't
 " iabbrev taht that

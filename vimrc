@@ -95,7 +95,7 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
 " Most tolerable colorscheme so far
-colorscheme delek
+colorscheme desert
 
 " Set <leader> to - globally and _ locally
 let mapleader="-"

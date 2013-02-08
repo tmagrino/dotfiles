@@ -5,3 +5,4 @@ setlocal textwidth=80
 setlocal smarttab
 setlocal expandtab
 let g:Tex_DefaultTargetFormat="pdf"
+let g:tex_conceal="adgms"

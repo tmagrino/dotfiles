@@ -115,10 +115,10 @@ noremap <Right> <nop>
 " iabbrev dont don't
 " iabbrev taht that
 
-augroup filetypedetect
+"augroup filetypedetect
   " Treat fab and fil files like java.
   autocmd! BufNewFile,Bufread *.{fab,fil,jif}    setfiletype java
-augroup end
+"augroup end
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()

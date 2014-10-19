@@ -42,6 +42,9 @@ function parse_vcs {
 # Check for an interactive session (What?)
 [ -z "$PS1" ] && return
 
+# Make bash check the window size after each command
+shopt -s checkwinsize
+
 # Useful Aliases
 alias ls='ls --color=auto'
 alias emacs='emacs -nw'

@@ -22,6 +22,14 @@ function! ToggleJavaCommentsFold()
 endfunction
 nnoremap <localleader>cc :call ToggleJavaCommentsFold()<CR>
 
+" Suggested Eclim Bindings
+" Import what's under the cursor
+nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+" Search JavaDocs
+nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+" Search for definition/usage
+nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+
 " Now fold everything but the top level class and comments.
-call ToggleJavaCommentsFold()
-setlocal foldlevel=1
+"call ToggleJavaCommentsFold()
+"setlocal foldlevel=1

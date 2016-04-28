@@ -122,3 +122,14 @@ noremap <Right> <nop>
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
+
+" For youcompleteme + eclim
+let g:EclimCompletionMethod = 'omnifunc'
+" Turn off eclim's stupid logging 'feature'
+let g:EclimLoggingDisabled = 1
+
+" Hitting tab twice in normal mode does ProjectTreeToggle
+nnoremap <Tab><Tab> :ProjectTreeToggle<cr>
+
+" Add a digraph for ⊤
+digraph -t 8868

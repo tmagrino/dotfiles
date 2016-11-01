@@ -65,9 +65,11 @@ PS1_END="$PS1_END_COLOR\$\[$Color_Off\]"
 PS1="$PS1_TIME $PS1_USER@$PS1_HOST:$PS1_CWD $PS1_VCS$PS1_END "
 
 # Preferred Programs
-export EDITOR="/usr/bin/vim"
+export EDITOR="vim"
 export VISUAL=$EDITOR # Stupid legacy variable for the same shit.
-export PAGER="/usr/bin/less"
+export PAGER="less"
 
 # Add ~/bin to PATH if it exists
-[ -e ~/bin ] && export PATH=$PATH":~/bin"
+if [ -d ~/bin ] ; then
+	export PATH=$PATH":~/bin"
+fi

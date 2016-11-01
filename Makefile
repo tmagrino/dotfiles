@@ -20,6 +20,9 @@ install-vim: vim vimrc
 install-screen: screenrc
 	-ln -s ~/dotfiles/screenrc ~/.screenrc
 
-install: install-bash install-vim install-screen
+install-tmux: tmux.conf
+	-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
+
+install: install-bash install-vim install-screen install-tmux
 
 .PHONY: install clean install-bash install-vim install-screen

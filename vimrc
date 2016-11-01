@@ -1,5 +1,39 @@
 " Tom Magrino's vimrc
 
+" Install vim-plug if we don't have it already
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+" Manage plugins with vim-plug
+call plug#begin('~/.vim/plugged')
+
+" Solarized
+Plug 'altercation/vim-colors-solarized'
+
+" Statusline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Completion
+Plug 'benekastah/neomake'
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+" Git
+Plug 'tpope/vim-fugitive'
+
+" Indent guides
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Better whitespace handling
+Plug 'ntpeters/vim-better-whitespace'
+
+" End vim-plug plugins
+call plug#end()
+
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
@@ -16,7 +50,7 @@ if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
 else
   set backup		" keep a backup file
-  set backupdir=./.backup,~/.backup,.,/tmp
+  set backupdir=./.backup-vim,~/.backup-vim,.,/tmp
 endif
 set history=50			" keep 50 lines of command line history
 set ruler			" show the cursor position all the time
@@ -85,8 +119,7 @@ endif " has("autocmd")
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif
 
 " Setting for letting Latex-Suite avoid confusion
@@ -95,7 +128,10 @@ set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
 " Most tolerable colorscheme so far
-colorscheme delek
+let g:solarized_termcolors=256
+syntax enable
+set background=dark
+colorscheme solarized
 
 " Set <leader> to - globally and _ locally
 let mapleader="-"
@@ -133,3 +169,4 @@ nnoremap <Tab><Tab> :ProjectTreeToggle<cr>
 
 " Add a digraph for ⊤
 digraph -t 8868
+digraph _U 8852

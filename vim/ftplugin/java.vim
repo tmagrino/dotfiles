@@ -1,6 +1,6 @@
 setlocal tabstop=8
 setlocal softtabstop=8
-setlocal shiftwidth=2
+setlocal shiftwidth=4
 setlocal textwidth=80
 setlocal smarttab
 setlocal expandtab
@@ -24,12 +24,21 @@ nnoremap <localleader>cc :call ToggleJavaCommentsFold()<CR>
 
 " Suggested Eclim Bindings
 " Import what's under the cursor
-nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+nnoremap <silent> <buffer> <leader>i :JavaImportOrganize<cr>
 " Search JavaDocs
 nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
 " Search for definition/usage
 nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+" Toggle a breakpoint on the current line
+nnoremap <silent> <buffer> <Tab><cr> :JavaDebugBreakpointToggle<cr>
+" Step over, in, return
+nnoremap <silent> <buffer> <leader>o :JavaDebugStep over<cr>
+nnoremap <silent> <buffer> <leader>n :JavaDebugStep into<cr>
+nnoremap <silent> <buffer> <leader>r :JavaDebugStep over<cr>
 
 " Now fold everything but the top level class and comments.
 "call ToggleJavaCommentsFold()
 "setlocal foldlevel=1
+
+" Clear up whitespace on save
+autocmd BufWritePre <buffer> StripWhitespace

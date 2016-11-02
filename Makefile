@@ -17,12 +17,16 @@ install-vim: vim vimrc
 	-ln -s -T ~/dotfiles/vim ~/.vim
 	-mkdir ~/.backup
 
+install-nvim: vim vimrc
+	-mkdir -p ~/.config
+	-ln -s ~/dotfiles/vim ~/.config/nvim
+
 install-screen: screenrc
 	-ln -s ~/dotfiles/screenrc ~/.screenrc
 
 install-tmux: tmux.conf
 	-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 
-install: install-bash install-vim install-screen install-tmux
+install: install-bash install-vim install-screen install-tmux install-nvim
 
-.PHONY: install clean install-bash install-vim install-screen
+.PHONY: install clean install-bash install-vim install-screen install-tmux install-nvim

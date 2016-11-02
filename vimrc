@@ -10,8 +10,9 @@ endif
 " Manage plugins with vim-plug
 call plug#begin('~/.vim/plugged')
 
-" Solarized
+" Colors
 Plug 'altercation/vim-colors-solarized'
+Plug 'vim-scripts/phd'
 
 " Statusline
 Plug 'vim-airline/vim-airline'
@@ -30,6 +31,16 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 " Better whitespace handling
 Plug 'ntpeters/vim-better-whitespace'
+
+" Nerdtree
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'xuyuanp/nerdtree-git-plugin'
+
+" Nerdcommenter
+Plug 'scrooloose/nerdcommenter'
+
+" Tex
+Plug 'lervag/vimtex'
 
 " End vim-plug plugins
 call plug#end()
@@ -127,11 +138,13 @@ set grepprg=grep\ -nH\ $*
 
 let g:tex_flavor='latex'
 
-" Most tolerable colorscheme so far
-let g:solarized_termcolors=256
-syntax enable
-set background=dark
-colorscheme solarized
+" Solarized
+"let g:solarized_termcolors=256
+"syntax enable
+"set background=dark
+"colorscheme solarized
+
+colorscheme phd
 
 " Set <leader> to - globally and _ locally
 let mapleader="-"
@@ -156,16 +169,13 @@ noremap <Right> <nop>
   autocmd! BufNewFile,Bufread *.{fab,fil,jif}    setfiletype java
 "augroup end
 
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
 " For youcompleteme + eclim
 let g:EclimCompletionMethod = 'omnifunc'
 " Turn off eclim's stupid logging 'feature'
 let g:EclimLoggingDisabled = 1
 
 " Hitting tab twice in normal mode does ProjectTreeToggle
-nnoremap <Tab><Tab> :ProjectTreeToggle<cr>
+nnoremap <Tab><Tab> :NERDTreeToggle<cr>
 
 " Add a digraph for ⊤
 digraph -t 8868

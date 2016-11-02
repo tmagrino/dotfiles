@@ -29,6 +29,7 @@ nnoremap <silent> <buffer> <leader>i :JavaImportOrganize<cr>
 nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
 " Search for definition/usage
 nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+nnoremap <silent> <buffer> <Space> :JavaDocPreview<cr>
 " Toggle a breakpoint on the current line
 nnoremap <silent> <buffer> <Tab><cr> :JavaDebugBreakpointToggle<cr>
 " Step over, in, return

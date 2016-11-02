@@ -67,7 +67,8 @@ set history=50			" keep 50 lines of command line history
 set ruler			" show the cursor position all the time
 set showcmd			" display incomplete commands
 set incsearch			" do incremental searching
-set tags=~/.tags,./.tags,./tags;/	" keep tag file in homedir or current directory.
+" keep tag file in homedir or current directory.
+set tags=~/.tags,./.tags,./tags;/
 set number			" number lines
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
@@ -130,21 +131,17 @@ endif " has("autocmd")
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | \
+  wincmd p | diffthis
 endif
 
-" Setting for letting Latex-Suite avoid confusion
-set grepprg=grep\ -nH\ $*
-
-let g:tex_flavor='latex'
-
-" Solarized
-"let g:solarized_termcolors=256
-"syntax enable
-"set background=dark
-"colorscheme solarized
-
+" Colors
+set termguicolors
+" colorscheme solarized
 colorscheme phd
+set colorcolumn=+1
+" highlight ColorColumn guibg=#324454
+highlight ColorColumn guibg=#030a54
 
 " Set <leader> to - globally and _ locally
 let mapleader="-"

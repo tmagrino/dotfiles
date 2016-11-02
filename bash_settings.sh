@@ -64,13 +64,14 @@ PS1_END_COLOR='$(if [[ $PS1_ES -eq 0 ]]; then echo -ne "\[$Green\]"; else echo -
 PS1_END="$PS1_END_COLOR\$\[$Color_Off\]"
 PS1="$PS1_TIME $PS1_USER@$PS1_HOST:$PS1_CWD $PS1_VCS$PS1_END "
 
+export EDITOR="vim"
+
 # If neovim is available, alias vim with that
 if hash nvim ; then
 	alias vim="nvim"
+	export EDITOR="nvim"
 fi
 
-# Preferred Programs
-export EDITOR="vim"
 export VISUAL=$EDITOR # Stupid legacy variable for the same shit.
 export PAGER="less"
 

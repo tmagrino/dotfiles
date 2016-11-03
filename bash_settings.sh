@@ -42,8 +42,23 @@ function parse_vcs {
 # Check for an interactive session (What?)
 [ -z "$PS1" ] && return
 
-# Make bash check the window size after each command
-shopt -s checkwinsize
+# Bash specifics
+if [[ $SHELL == "/bin/bash" ]]; then
+	# Make bash check the window size after each command
+	shopt -s checkwinsize
+
+	# Bash Prompt
+	PS1_ES=0
+	PROMPT_COMMAND='PS1_ES=$?'
+	PS1_TIME="\[$Cyan\][\@]\[$Color_Off\]"
+	PS1_USER="\[$Red\]\u\[$Color_Off\]"
+	PS1_HOST="\[$Blue\]\h\[$Color_Off\]"
+	PS1_CWD="\[$Green\]\w\[$Color_Off\]"
+	PS1_VCS="\[$Purple\]\$(parse_vcs)"
+	PS1_END_COLOR='$(if [[ $PS1_ES -eq 0 ]]; then echo -ne "\[$Green\]"; else echo -ne "\[$Red\]"; fi)'
+	PS1_END="$PS1_END_COLOR\$\[$Color_Off\]"
+	PS1="$PS1_TIME $PS1_USER@$PS1_HOST:$PS1_CWD $PS1_VCS$PS1_END "
+fi
 
 # Useful Aliases
 alias ls='ls --color=auto'
@@ -51,18 +66,6 @@ alias emacs='emacs -nw'
 alias info='info --vi-keys'
 alias pdb='python -m pdb'
 alias pdb3='python3 -m pdb'
-
-# Bash Prompt
-PS1_ES=0
-PROMPT_COMMAND='PS1_ES=$?'
-PS1_TIME="\[$Cyan\][\@]\[$Color_Off\]"
-PS1_USER="\[$Red\]\u\[$Color_Off\]"
-PS1_HOST="\[$Blue\]\h\[$Color_Off\]"
-PS1_CWD="\[$Green\]\w\[$Color_Off\]"
-PS1_VCS="\[$Purple\]\$(parse_vcs)"
-PS1_END_COLOR='$(if [[ $PS1_ES -eq 0 ]]; then echo -ne "\[$Green\]"; else echo -ne "\[$Red\]"; fi)'
-PS1_END="$PS1_END_COLOR\$\[$Color_Off\]"
-PS1="$PS1_TIME $PS1_USER@$PS1_HOST:$PS1_CWD $PS1_VCS$PS1_END "
 
 export EDITOR="vim"
 

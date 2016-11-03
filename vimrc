@@ -42,6 +42,9 @@ Plug 'scrooloose/nerdcommenter'
 " Tex
 Plug 'lervag/vimtex'
 
+" Syntastic
+Plug 'scrooloose/syntastic'
+
 " End vim-plug plugins
 call plug#end()
 
@@ -177,3 +180,9 @@ nnoremap <Tab><Tab> :NERDTreeToggle<cr>
 " Add a digraph for ⊤
 digraph -t 8868
 digraph _U 8852
+
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1

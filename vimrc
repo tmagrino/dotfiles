@@ -186,3 +186,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+
+" NERDCommenter
+" Left align comments for commented out code.
+let g:NERDDefaultAlign = 'left'
+" Include blank lines in commenting regions of code.
+let g:NERDCommentEmptyLines = 1

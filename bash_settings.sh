@@ -21,13 +21,13 @@ function parse_svn_revision() {
 }
 
 # Pretty sure this is broken (still)
-function parse_hg_branch() {
-	local STATUS DIRTY=""
-	STATUS=$(hg status 2>/dev/null)
-	[[ `hg branch 2>/dev/null` ]] || return
-	[ -z "$(echo "$STATUS" | grep -e '^[^?]')" ] || DIRTY="${DIRTY}+"
-	echo "[$(hg branch 2>/dev/null | awk '{print $1}')$DIRTY]"
-}
+#function parse_hg_branch() {
+#	local STATUS DIRTY=""
+#	STATUS=$(hg status 2>/dev/null)
+#	[[ `hg branch 2>/dev/null` ]] || return
+#	[ -z "$(echo "$STATUS" | grep -e '^[^?]')" ] || DIRTY="${DIRTY}+"
+#	echo "[$(hg branch 2>/dev/null | awk '{print $1}')$DIRTY]"
+#}
 
 function parse_vcs {
 	local STATUS

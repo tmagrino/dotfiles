@@ -80,5 +80,5 @@ export PAGER="less"
 
 # Add ~/bin to PATH if it exists
 if [ -d ~/bin ] ; then
-	export PATH=$PATH":~/bin"
+	export PATH=$PATH":"$HOME"/bin"
 fi

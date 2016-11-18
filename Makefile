@@ -13,7 +13,7 @@ install-bash: bash_settings.sh
 		 echo "${BASH_SOURCE}" >> ~/.bashrc)
 
 install-zsh: install-bash zshrc agnoster-bluewres.zsh-theme
-	-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	-sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	-ln -s ~/dotfiles/agnoster-bluewres.zsh-theme ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme
 	-ln -sf ~/dotfiles/zshrc ~/.zshrc
 

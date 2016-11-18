@@ -15,7 +15,7 @@ install-bash: bash_settings.sh
 install-vim: vim vimrc
 	-ln -s ~/dotfiles/vimrc ~/.vimrc
 	-ln -s -T ~/dotfiles/vim ~/.vim
-	-mkdir ~/.backup
+	-mkdir ~/.backup-vim
 
 install-nvim: vim vimrc
 	-mkdir -p ~/.config

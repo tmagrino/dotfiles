@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 " Colors
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/phd'
+"Plug 'kien/rainbow_parentheses.vim'
 
 " Statusline
 Plug 'vim-airline/vim-airline'
@@ -44,6 +45,10 @@ Plug 'lervag/vimtex'
 
 " Syntastic
 Plug 'scrooloose/syntastic'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " End vim-plug plugins
 call plug#end()
@@ -154,6 +159,9 @@ let maplocalleader="_"
 nnoremap <leader>ev :sp $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" Remove search highlighting
+nnoremap <leader>cl :nohl<cr>
+
 " No arrow keys
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -172,7 +180,7 @@ noremap <Right> <nop>
 " For youcompleteme + eclim
 let g:EclimCompletionMethod = 'omnifunc'
 " Turn off eclim's stupid logging 'feature'
-let g:EclimLoggingDisabled = 1
+let g:EclimLoggingDisabled = 0
 
 " Hitting tab twice in normal mode does ProjectTreeToggle
 nnoremap <Tab><Tab> :NERDTreeToggle<cr>
@@ -192,3 +200,13 @@ let g:syntastic_check_on_wq = 1
 let g:NERDDefaultAlign = 'left'
 " Include blank lines in commenting regions of code.
 let g:NERDCommentEmptyLines = 1
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
+" Open a terminal
+nnoremap <leader>t :sp term://$SHELL<cr>i
+" Esc to exit insert mode in a terminal
+tnoremap <esc> <C-\><C-n>

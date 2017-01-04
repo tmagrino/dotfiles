@@ -66,6 +66,7 @@ alias emacs='emacs -nw'
 alias info='info --vi-keys'
 alias pdb='python -m pdb'
 alias pdb3='python3 -m pdb'
+alias rm='rm -I'
 
 export EDITOR="vim"
 

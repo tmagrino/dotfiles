@@ -41,7 +41,7 @@ Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
 
 " Tex
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', {'for': 'tex'}
 
 " Syntastic
 Plug 'scrooloose/syntastic'

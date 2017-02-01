@@ -23,6 +23,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'benekastah/neomake'
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'ervandrew/supertab'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -47,8 +48,8 @@ Plug 'lervag/vimtex'
 Plug 'scrooloose/syntastic'
 
 " Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 
 " End vim-plug plugins
 call plug#end()
@@ -202,9 +203,9 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger = '<c-j>'
-let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+"let g:UltiSnipsExpandTrigger = '<c-j>'
+"let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+"let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 " Open a terminal
 nnoremap <leader>t :sp term://$SHELL<cr>i

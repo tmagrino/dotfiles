@@ -12,12 +12,17 @@ install-bash: bash_settings.sh
 		 echo "${BASH_COMMENT}" >> ~/.bashrc && \
 		 echo "${BASH_SOURCE}" >> ~/.bashrc)
 
+install-zsh: install-bash zshrc agnoster-bluewres.zsh-theme
+	-sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	-ln -s ~/dotfiles/agnoster-bluewres.zsh-theme ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme
+	-ln -sf ~/dotfiles/zshrc ~/.zshrc
+
 install-vim: vim vimrc
 	-ln -s ~/dotfiles/vimrc ~/.vimrc
 	-ln -s -T ~/dotfiles/vim ~/.vim
 	-mkdir ~/.backup-vim
 
-install-nvim: vim vimrc
+install-nvim: install-vim vim vimrc
 	-mkdir -p ~/.config
 	-ln -s ~/dotfiles/vim ~/.config/nvim
 
@@ -27,6 +32,6 @@ install-screen: screenrc
 install-tmux: tmux.conf
 	-ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 
-install: install-bash install-vim install-screen install-tmux install-nvim
+install: install-bash install-vim install-screen install-tmux install-nvim install-zsh
 
-.PHONY: install clean install-bash install-vim install-screen install-tmux install-nvim
+.PHONY: install clean install-bash install-vim install-screen install-tmux install-nvim install-zsh

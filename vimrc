@@ -23,7 +23,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'benekastah/neomake'
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'ervandrew/supertab'
+Plug 'ervandew/supertab'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -189,6 +189,7 @@ nnoremap <Tab><Tab> :NERDTreeToggle<cr>
 " Add a digraph for ⊤
 digraph -t 8868
 digraph _U 8852
+digraph vc 8407
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -211,3 +212,10 @@ let g:NERDCommentEmptyLines = 1
 nnoremap <leader>t :sp term://$SHELL<cr>i
 " Esc to exit insert mode in a terminal
 tnoremap <esc> <C-\><C-n>
+
+" Handle markdown highlighting of java code
+let g:markdown_fenced_languages = ['java']
+
+" Binding to more quickly resync syntax highlighting (mostly useful for
+" markdown with fenced languages)
+nnoremap <leader>l :syntax sync fromstart<cr>

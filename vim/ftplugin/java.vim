@@ -23,10 +23,12 @@ endfunction
 nnoremap <localleader>cc :call ToggleJavaCommentsFold()<CR>
 
 " Suggested Eclim Bindings
+" Format entire file
+nnoremap <silent> <buffer> <leader>f :JavaImportOrganize<cr>:%JavaFormat<cr>
 " Import what's under the cursor
 nnoremap <silent> <buffer> <leader>i :JavaImportOrganize<cr>
 " Search JavaDocs
-nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+nnoremap <silent> <buffer> <leader>jd :JavaDocPreview<cr>
 " Search for definition/usage
 nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 nnoremap <silent> <buffer> <Space> :JavaDocPreview<cr>

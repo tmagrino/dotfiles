@@ -35,8 +35,10 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Nerdtree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'xuyuanp/nerdtree-git-plugin'
+" Allows for consistency across tabs
+"Plug 'octref/RootIgnore'
 
 " Nerdcommenter
 Plug 'scrooloose/nerdcommenter'
@@ -50,6 +52,15 @@ Plug 'scrooloose/syntastic'
 " Snippets
 "Plug 'SirVer/ultisnips'
 "Plug 'honza/vim-snippets'
+
+" Haskell
+Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
+Plug 'parsonsmatt/intero-neovim', {'for': 'haskell'}
+
+" Python
+Plug 'python-mode/python-mode', {'branch': 'develop', 'for': 'python'}
 
 " End vim-plug plugins
 call plug#end()
@@ -184,7 +195,13 @@ let g:EclimCompletionMethod = 'omnifunc'
 let g:EclimLoggingDisabled = 0
 
 " Hitting tab twice in normal mode does ProjectTreeToggle
-nnoremap <Tab><Tab> :NERDTreeToggle<cr>
+nnoremap <Tab><Tab> :NERDTreeToggle<cr>:NERDTreeMirror<cr>
+" Close if NERDTree's the only one left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"" Disable the netrw plugin
+"let loaded_netrwPlugin=1
+"" Let NERDTree use wildignore settings
+"let NERDTreeRespectWildIgnore=1
 
 " Add a digraph for ⊤
 digraph -t 8868
@@ -214,8 +231,14 @@ nnoremap <leader>t :sp term://$SHELL<cr>i
 tnoremap <esc> <C-\><C-n>
 
 " Handle markdown highlighting of java code
-let g:markdown_fenced_languages = ['java']
+let g:markdown_fenced_languages = ['java', 'sh']
 
 " Binding to more quickly resync syntax highlighting (mostly useful for
 " markdown with fenced languages)
 nnoremap <leader>l :syntax sync fromstart<cr>
+" Close if quickfix list is the only one left
+autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
+	\   q :cclose<cr>:lclose<cr>
+autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
+	\   bd|
+	\   q | endif

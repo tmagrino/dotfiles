@@ -28,7 +28,7 @@ install-zsh: install-bash ${mkfile_dir}/zshrc ~/.oh-my-zsh/themes/agnoster-bluew
 	-ln -sf ${mkfile_dir}/zshrc ~/.zshrc
 
 ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme: ~/.oh-my-zsh ${mkfile_dir}/agnoster-bluewres.zsh-theme
-	-ln -s ${mkfile_dir}/agnoster-bluewres.zsh-theme ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme
+	-ln -sf ${mkfile_dir}/agnoster-bluewres.zsh-theme ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme
 
 ~/.oh-my-zsh:
 	-sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -38,10 +38,10 @@ install-zsh: install-bash ${mkfile_dir}/zshrc ~/.oh-my-zsh/themes/agnoster-bluew
 install-vim: ~/.vimrc ~/.vim ~/.backup-vim
 
 ~/.vimrc: ${mkfile_dir}/vimrc
-	-ln -s ${mkfile_dir}/vimrc ~/.vimrc
+	-ln -sf ${mkfile_dir}/vimrc ~/.vimrc
 
 ~/.vim: ${mkfile_dir}/vim
-	-ln -s -T ${mkfile_dir}/vim ~/.vim
+	-ln -sf -T ${mkfile_dir}/vim ~/.vim
 
 ~/.backup-vim:
 	-mkdir -p ~/.backup-vim
@@ -54,14 +54,14 @@ install-nvim: install-vim ~/.config ~/.config/nvim
 	-mkdir -p ~/.config
 
 ~/.config/nvim: ~/.config vim
-	-ln -s ${mkfile_dir}/vim ~/.config/nvim
+	-ln -sf ${mkfile_dir}/vim ~/.config/nvim
 
 # Screen
 
 install-screen: ~/.screenrc
 
 ~/.screenrc: screenrc
-	-ln -s ${mkfile_dir}/screenrc ~/.screenrc
+	-ln -sf ${mkfile_dir}/screenrc ~/.screenrc
 
 # Tmux
 # Using oh-my-tmux

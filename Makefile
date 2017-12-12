@@ -64,13 +64,14 @@ install-screen: ~/.screenrc
 	-ln -s ${mkfile_dir}/screenrc ~/.screenrc
 
 # Tmux
-#
-# TODO: Out of date, now using a modified version of oh-my-tmux
+# Using oh-my-tmux
 
-install-tmux: ~/.tmux.conf
+install-tmux: ~/.tmux
 
-~/.tmux.conf: tmux.conf
-	-ln -s ${mkfile_dir}/tmux.conf ~/.tmux.conf
+~/.tmux:
+	-git clone https://github.com/gpakosz/.tmux.git ~/.tmux
+	-ln -sf ~/.tmux/.tmux.conf ~/.tmux.conf
+	-ln -sf ${mkfile_dir}/tmux.conf.local ~/.tmux.conf.local
 
 # All
 

@@ -187,6 +187,7 @@ noremap <Right> <nop>
 "augroup filetypedetect
   " Treat fab and fil files like java.
   autocmd! BufNewFile,Bufread *.{fab,fil,jif}    setfiletype java
+  autocmd! BufNewFile,Bufread *.ppg		 setfiletype ppg
 "augroup end
 
 " For youcompleteme + eclim

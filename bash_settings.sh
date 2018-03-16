@@ -83,3 +83,8 @@ export PAGER="less"
 if [ -d ~/bin ] ; then
 	export PATH=$PATH":"$HOME"/bin"
 fi
+
+# Add Ruby gems to PATH if it exists
+if [ -d ~/bin ] ; then
+	export PATH=$PATH":"$HOME"/.gem/ruby/2.4.0/bin"
+fi

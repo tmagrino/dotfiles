@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
 " Colors
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/phd'
-"Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
 
 " Statusline
 Plug 'vim-airline/vim-airline'
@@ -81,7 +81,7 @@ if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
 else
   set backup		" keep a backup file
-  set backupdir=./.backup-vim,~/.backup-vim,.,/tmp
+  set backupdir=./.backup-vim//,~/.backup-vim//,.//,/tmp//
 endif
 set history=50			" keep 50 lines of command line history
 set ruler			" show the cursor position all the time
@@ -157,8 +157,11 @@ endif
 
 " Colors
 set termguicolors
-" colorscheme solarized
+"set background=dark
+"colorscheme solarized
 colorscheme phd
+"colorscheme andru
+"colorscheme molokai_dark
 set colorcolumn=+1
 " highlight ColorColumn guibg=#324454
 highlight ColorColumn guibg=#030a54
@@ -174,6 +177,15 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Remove search highlighting
 nnoremap <leader>cl :nohl<cr>
 
+" Enable indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+
 " No arrow keys
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -186,8 +198,9 @@ noremap <Right> <nop>
 
 "augroup filetypedetect
   " Treat fab and fil files like java.
-  autocmd! BufNewFile,Bufread *.{fab,fil,jif}    setfiletype java
-  autocmd! BufNewFile,Bufread *.ppg		 setfiletype ppg
+  autocmd BufNewFile,Bufread *.{fab,fil,jif}    setfiletype java
+  autocmd BufNewFile,Bufread *.ppg		 setfiletype ppg
+  autocmd BufNewFile,Bufread *.{plot,gplot,gnuplot,gplt} setfiletype gnuplot
 "augroup end
 
 " For youcompleteme + eclim
@@ -195,8 +208,17 @@ let g:EclimCompletionMethod = 'omnifunc'
 " Turn off eclim's stupid logging 'feature'
 let g:EclimLoggingDisabled = 0
 
-" Hitting tab twice in normal mode does ProjectTreeToggle
-nnoremap <Tab><Tab> :NERDTreeToggle<cr>:NERDTreeMirror<cr>
+" Hitting tab twice in normal mode does ProjectTreeToggle but also expands to
+" the current file, if possible.
+function! FancyOpenNerdTree()
+	let file = expand("%")
+	execute ":NERDTreeToggle"
+	if filereadable(file)
+		execute ":NERDTreeFind " . file
+	endif
+	execute ":NERDTreeMirror"
+endfunction
+nnoremap <Tab><Tab> :call FancyOpenNerdTree()<cr>
 " Close if NERDTree's the only one left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "" Disable the netrw plugin
@@ -208,12 +230,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 digraph -t 8868
 digraph _U 8852
 digraph vc 8407
-
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
 
 " NERDCommenter
 " Left align comments for commented out code.
@@ -243,3 +259,8 @@ autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
 autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
 	\   bd|
 	\   q | endif
+
+" Turn on rainbow parens.
+au BufEnter * RainbowParentheses
+" Add other kinds of parens.
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]

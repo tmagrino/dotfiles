@@ -24,7 +24,8 @@ install-bash: ${mkfile_dir}/bash_settings.sh
 
 install-zsh: install-bash ${mkfile_dir}/zshrc ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme
 
-~/.zshrc: ${mkfile_dir}/zshrc
+~/.zshrc: ~/.oh-my-zsh ${mkfile_dir}/zshrc
+	-rm ~/.zshrc
 	-ln -sf ${mkfile_dir}/zshrc ~/.zshrc
 
 ~/.oh-my-zsh/themes/agnoster-bluewres.zsh-theme: ~/.oh-my-zsh ${mkfile_dir}/agnoster-bluewres.zsh-theme

@@ -20,16 +20,29 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Completion
-Plug 'benekastah/neomake'
-Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'ervandew/supertab'
+if has('nvim')
+	Plug 'roxma/nvim-completion-manager'
+	" Turning this off for now because it forces an update each time it
+	" refreshes...
+	"Plug 'sassanh/nvim-cm-eclim'
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+	Plug 'Shougo/deoplete.nvim'
+	Plug 'roxma/nvim-yarp'
+	Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Indent guides
 Plug 'nathanaelkane/vim-indent-guides'
+
+" Table mode
+" Maybe later, I'm not digging it right now.
+"Plug 'dhruvasagar/vim-table-mode'
 
 " Better whitespace handling
 Plug 'ntpeters/vim-better-whitespace'
@@ -37,8 +50,6 @@ Plug 'ntpeters/vim-better-whitespace'
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'xuyuanp/nerdtree-git-plugin'
-" Allows for consistency across tabs
-"Plug 'octref/RootIgnore'
 
 " Nerdcommenter
 Plug 'scrooloose/nerdcommenter'
@@ -46,12 +57,18 @@ Plug 'scrooloose/nerdcommenter'
 " Tex
 Plug 'lervag/vimtex', {'for': 'tex'}
 
-" Syntastic
-Plug 'scrooloose/syntastic'
+" Syntax Linting
+Plug 'w0rp/ale'
 
 " Snippets
 "Plug 'SirVer/ultisnips'
 "Plug 'honza/vim-snippets'
+
+" Fancy surround movements
+Plug 'tpope/vim-surround'
+
+" Fancy fuzzy file searching
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
@@ -60,7 +77,11 @@ Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'parsonsmatt/intero-neovim', {'for': 'haskell'}
 
 " Python
-Plug 'python-mode/python-mode', {'branch': 'develop', 'for': 'python'}
+Plug 'klen/python-mode', {'branch': 'develop'}
+Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
+
+" Mathematica?
+Plug 'rsmenon/vim-mathematica', {'for': 'mma'}
 
 " End vim-plug plugins
 call plug#end()
@@ -151,8 +172,8 @@ endif " has("autocmd")
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | \
-  wincmd p | diffthis
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+			  \ | wincmd p | diffthis
 endif
 
 " Colors
@@ -180,11 +201,11 @@ nnoremap <leader>cl :nohl<cr>
 " Enable indent guides
 let g:indent_guides_enable_on_vim_startup = 1
 
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+" Ale
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_filetype_changed = 1
 
 " No arrow keys
 noremap <Up> <nop>
@@ -203,11 +224,6 @@ noremap <Right> <nop>
   autocmd BufNewFile,Bufread *.{plot,gplot,gnuplot,gplt} setfiletype gnuplot
 "augroup end
 
-" For youcompleteme + eclim
-let g:EclimCompletionMethod = 'omnifunc'
-" Turn off eclim's stupid logging 'feature'
-let g:EclimLoggingDisabled = 0
-
 " Hitting tab twice in normal mode does ProjectTreeToggle but also expands to
 " the current file, if possible.
 function! FancyOpenNerdTree()
@@ -221,10 +237,6 @@ endfunction
 nnoremap <Tab><Tab> :call FancyOpenNerdTree()<cr>
 " Close if NERDTree's the only one left
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"" Disable the netrw plugin
-"let loaded_netrwPlugin=1
-"" Let NERDTree use wildignore settings
-"let NERDTreeRespectWildIgnore=1
 
 " Add a digraph for ⊤
 digraph -t 8868
@@ -264,3 +276,65 @@ autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
 au BufEnter * RainbowParentheses
 " Add other kinds of parens.
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+
+" Using pymode, with python3 because we don't live in the early 20[10]0s still
+let g:pymode = 1
+let g:pymode_python = 'python3'
+
+" Turn on indent guides
+au BufEnter * IndentGuidesEnable
+
+" Turn on deoplete
+let g:deoplete#enable_at_startup = 1
+
+" Show docstring in preview for jedi
+let g:deoplete#sources#jedi#show_docstring = 1
+
+" Turn off eclim's stupid logging 'feature'
+let g:EclimLoggingDisabled = 0
+
+" Show preview window and close it when out of insert mode for
+" nvim-completion-manager
+" From: https://github.com/roxma/nvim-completion-manager/issues/132
+" Add preview to see docstrings in the complete window.
+let g:cm_completeopt = 'menu,menuone,noinsert,noselect,preview'
+
+" Close the prevew window automatically on InsertLeave
+" https://github.com/davidhalter/jedi-vim/blob/eba90e615d73020365d43495fca349e5a2d4f995/ftplugin/python/jedi.vim#L44
+augroup ncm_preview
+	autocmd! InsertLeave <buffer> if pumvisible() == 0|pclose|endif
+augroup END
+
+" Turn off SuperTab's "feature" of showing options backwards.
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+" Turn off eclim validation for python
+let g:EclimPythonValidate = 0
+
+" Make enter not just hide the auto completion list but also line break
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Don't use javac with ALE, that's dumb.
+let g:ale_linters = {
+\ 'java': [],
+\}
+
+" Use deoplete as a completion source for nvim-completion-manager
+" From https://github.com/roxma/nvim-completion-manager/issues/50
+" force init deoplete then hack deoplete's mapping
+call deoplete#enable()
+
+" register as ncm source
+au User CmSetup call cm#register_source({'name' : 'deoplete',
+        \ 'priority': 7,  
+        \ 'abbreviation': '', 
+        \ })
+
+" hack deoplete's mapping
+inoremap <silent> <Plug>_ <C-r>=g:Deoplete_ncm()<CR>
+
+func! g:Deoplete_ncm()
+  " forward to ncm
+  call cm#complete('deoplete', cm#context(), g:deoplete#_context.complete_position + 1, g:deoplete#_context.candidates)
+  return ''
+endfunc

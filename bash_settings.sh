@@ -88,3 +88,6 @@ fi
 if [ -d ~/bin ] ; then
 	export PATH=$PATH":"$HOME"/.gem/ruby/2.4.0/bin"
 fi
+
+# Add an alias to save the last command into a file.
+alias getlast='fc -nl $((HISTCMD - 1))'

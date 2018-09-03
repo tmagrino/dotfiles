@@ -22,7 +22,9 @@ Plug 'vim-airline/vim-airline-themes'
 " Completion
 Plug 'ervandew/supertab'
 if has('nvim')
-	Plug 'roxma/nvim-completion-manager'
+	" This was moved to the updated
+	"Plug 'roxma/nvim-completion-manager'
+	Plug 'ncm2/ncm2'
 	" Turning this off for now because it forces an update each time it
 	" refreshes...
 	"Plug 'sassanh/nvim-cm-eclim'
@@ -82,6 +84,9 @@ Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
 
 " Mathematica?
 Plug 'rsmenon/vim-mathematica', {'for': 'mma'}
+
+" Java
+Plug 'npacker/vim-java-syntax-after'
 
 " End vim-plug plugins
 call plug#end()
@@ -310,6 +315,9 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Turn off eclim validation for python
 let g:EclimPythonValidate = 0
+
+" Sort eclim validation results by severity, rather than occurrence.
+let g:EclimValidateSortResults = 'severity'
 
 " Make enter not just hide the auto completion list but also line break
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")

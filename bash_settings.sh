@@ -85,9 +85,14 @@ if [ -d ~/bin ] ; then
 fi
 
 # Add Ruby gems to PATH if it exists
-if [ -d ~/bin ] ; then
+if [ -d ~/.gem ] ; then
 	export PATH=$PATH":"$HOME"/.gem/ruby/2.4.0/bin"
 fi
 
 # Add an alias to save the last command into a file.
 alias getlast='fc -nl $((HISTCMD - 1))'
+
+# Add local pip scripts to PATH if it exists
+if [ -d ~/.local/bin ] ; then
+	export PATH=$PATH":"$HOME"/.local/bin"
+fi

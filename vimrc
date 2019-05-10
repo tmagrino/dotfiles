@@ -29,6 +29,7 @@ if has('nvim')
 	" refreshes...
 	"Plug 'sassanh/nvim-cm-eclim'
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	Plug 'deoplete-plugins/deoplete-clang'
 else
 	Plug 'Shougo/deoplete.nvim'
 	Plug 'roxma/nvim-yarp'
@@ -51,16 +52,19 @@ Plug 'ntpeters/vim-better-whitespace'
 
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'albfan/nerdtree-git-plugin'
 
 " Nerdcommenter
 Plug 'scrooloose/nerdcommenter'
+
+" Syntastic
+Plug 'scrooloose/syntastic', {'for': 'tex'}
 
 " Tex
 Plug 'lervag/vimtex', {'for': 'tex'}
 
 " Syntax Linting
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 
 " Snippets
 "Plug 'SirVer/ultisnips'
@@ -290,10 +294,10 @@ let g:pymode_python = 'python3'
 au BufEnter * IndentGuidesEnable
 
 " Turn on deoplete
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 
 " Show docstring in preview for jedi
-let g:deoplete#sources#jedi#show_docstring = 1
+"let g:deoplete#sources#jedi#show_docstring = 1
 
 " Turn off eclim's stupid logging 'feature'
 let g:EclimLoggingDisabled = 0
@@ -346,3 +350,18 @@ func! g:Deoplete_ncm()
   call cm#complete('deoplete', cm#context(), g:deoplete#_context.complete_position + 1, g:deoplete#_context.candidates)
   return ''
 endfunc
+
+" Assume latex unless told otherwise.
+let g:tex_flavor = "latex"
+
+" Ignore latex cruft, NERDTree
+let NERDTreeIgnore=['\.aux$', '\.auxlock$', '\.bbl$', '\.blg$', '\.lof$', '\.log$', '\.lot$', '\.toc$']
+
+" underline misspelled words
+hi SpellBad cterm=underline
+hi SpellBad gui=undercurl
+
+" When sytnastic is on, always populate the location list.
+let g:sytnastic_always_populate_loc_list = 1
+let g:sytnastic_check_on_open = 1
+let g:sytnastic_aggregate_errors = 1

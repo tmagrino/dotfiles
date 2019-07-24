@@ -34,6 +34,7 @@ else
 	Plug 'Shougo/deoplete.nvim'
 	Plug 'roxma/nvim-yarp'
 	Plug 'roxma/vim-hug-neovim-rpc'
+	Plug 'deoplete-plugins/deoplete-clang'
 endif
 
 " Git
@@ -90,7 +91,11 @@ Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
 Plug 'rsmenon/vim-mathematica', {'for': 'mma'}
 
 " Java
-Plug 'npacker/vim-java-syntax-after'
+Plug 'npacker/vim-java-syntax-after', {'for': 'java'}
+
+" C/C++
+Plug 'ludovicchabant/vim-gutentags', {'for': 'cpp'}
+Plug 'majutsushi/tagbar', {'for': 'cpp'}
 
 " End vim-plug plugins
 call plug#end()
